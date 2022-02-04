@@ -1,0 +1,27 @@
+.navbar {
+    display: flex;
+    flex-flow: column nowrap;
+min-height: 1200px;
+    width: 95px;
+    align-items: center;
+    gap: 33px;
+    background-color: #002137;
+    padding-top: 17px;
+
+}
+.navbarItem {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.navbarItem div {
+    text-align: center;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    color: white;
+    font-family: myriad-pro-condensed, sans-serif;
+    font-style: normal;
+
+}

@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "./index.module.css";
 import closeButton from "../../assets/img/closeButton.svg";
 import Button from "../UI/button";
+import Dropdown from "react-dropdown";
+import 'react-dropdown/style.css';
 import axios from "axios";
 
-const EditTask = ({task, closeEditTaskWindow}) => {
+const EditTask = ({task, closeEditTaskWindow, changeStatus, changeExecutor, statuses, users}) => {
     const {
         name,
         id,
@@ -12,7 +14,6 @@ const EditTask = ({task, closeEditTaskWindow}) => {
         statusId,
         statusName,
         statusRgb,
-        comment,
         tags,
         executorId,
         executorName,
@@ -21,48 +22,28 @@ const EditTask = ({task, closeEditTaskWindow}) => {
         priorityName,
         resolutionDatePlan,
     } = task;
-    //     createdAt: "2022-02-03T15:19:30.0199866+03:00"
-// description: "<p style=\"color: #e5e5e5;\">Уха</p> из трех видов рыб. Салат с телятиной. МОРС КЛЮКВЕННЫЙ"
-// executorGroupId: 70104
-// executorGroupName: "Офис менеджеры"
-// executorId: 70105
-// executorName: "Петров Борис"
-// id: 191646
-// initiatorId: 70106
-// initiatorName: "Иванов Андрей"
-// name: "Заказать обед"
-// price: 100
-// priorityId: 103508
-// priorityName: "Средний"
-// resolutionDatePlan: "2022-02-03T15:19:30.0199866+03:00"
-// serviceId: 70104
-// serviceName: "Еда > Заказ обедов"
-// statusId: 120210
-// statusName: "Открыта"
-// statusRgb: "#fd5e53"
-// tags: Array [ {…}, {…} ]
-// taskTypeId: 70105
-// taskTypeName: "Стандартный"
-// updatedAt: "2022-02-03T15:19:30.0199866+03:00"
-    const [newCommentaryText, setNewCommentaryText] = useState("")
-    let [commentaries, setCommentaries] = useState([])
 
-    const commentariesElement = commentaries?.map(commentary => {
-        return <div> {commentary.text} </div>
-    })
+
+    useEffect(() => {
+        axios.get(`http://intravision-task.test01.intravision.ru/api/${process.env.REACT_APP_API_GUID}/Tasks/${id}`).then(res => {
+            console.log(res.data)
+            setCurrentTask(res.data)
+        })
+    }, [])
+    const [selectedExecutor, setSelectedExecutor] = useState({name: executorName, id: executorId})
+    const [selectedStatus, setSelectedStatus] = useState({id: statusId, name: statusName, rgb: statusRgb})
+    const [currentTask, setCurrentTask] = useState({task})
+    const [commentary, setCommentary] = useState("")
     const addCommentary = () => {
         axios.put(`http://intravision-task.test01.intravision.ru/api/${process.env.REACT_APP_API_GUID}/Tasks`, {
-            id,
-            executorId,
-            priorityId,
-            statusId,
-            comment: "Testing"
-        }).then(
-            res => console.log(res)
-        )
-
+            id, statusId, priorityId, executorId, comment: commentary
+        }).then(res => {
+            axios.get(`http://intravision-task.test01.intravision.ru/api/${process.env.REACT_APP_API_GUID}/Tasks/${id}`).then(res => {
+                console.log(res.data)
+                setCurrentTask(res.data)
+            })
+        })
     }
-console.log(task)
     return (
         <div className={s.editTask}>
 
@@ -83,23 +64,37 @@ console.log(task)
                             Добавление комментариев
                         </div>
                         <div className={s.addCommentary}>
-                            <input value={newCommentaryText} onChange={e => setNewCommentaryText(e.target.value)}/>
+                            <input value={commentary} onChange={e => setCommentary(e.target.value)}/>
                         </div>
                         <Button
                             onClick={addCommentary}
                             style={{marginLeft: "0"}}> Сохранить </Button>
                         <div className={s.commentaries}>
-                            {comment}
+                            {currentTask.lifetimeItems?.map(lifetimeItem => {
+                               return <div> {lifetimeItem.comment} </div>
+                            })}
                         </div>
 
 
                     </div>
                 </div>
                 <div className={s.rightSide}>
-                    <div className={s.status}>{statusName}</div>
+                    <Dropdown className={s.dropdown} options={statuses.map(statusItem => statusItem.name)}
+                              onChange={(statusName) => {
+                                  changeStatus(id, statusName, priorityId, executorId)
+                              }} value={selectedStatus.name}
+                              menuClassName={s.dropdownMenu}
+                              placeholder="Select an option"/>
+                    {/*<div className={s.status + " " + "Dropdown-control"}>{selectedStatus.name}</div>*/}
                     <div className={s.initiatorName}>{initiatorName}</div>
                     <div className={s.createdBy}>Создана кем то</div>
-                    <div className={s.executorName}>{executorName}</div>
+                    <Dropdown className={s.dropdown} options={users.map(userItem => userItem.name)}
+                              menuClassName={s.dropdownMenu}
+                              onChange={(executorName) => {
+                                  changeExecutor(id, executorName, statusId, priorityId, executorId)
+                              }}
+                              value={selectedExecutor.name}
+                    >{selectedExecutor.name}</Dropdown>
                     <div className={s.priority}>{priorityName}</div>
                     <div className={s.term}>{resolutionDatePlan}</div>
                     <div className={s.tags}>{tags.map(tag => <div>{tag.name}</div>)}</div>

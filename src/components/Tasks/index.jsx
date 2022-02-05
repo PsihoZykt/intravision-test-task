@@ -1,23 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React, {useState} from 'react';
 import s from './index.module.css'
 import Button from "../UI/button";
 
-const Tasks = ({selectTask, openNewTaskWindow, openEditTaskWindow}) => {
-    const [tasks, setTasks] = useState([])
-    const [priorities, setPriorities] = useState([])
-
-    useEffect(() => {
-        axios.get(`http://intravision-task.test01.intravision.ru/odata/tasks?tenantguid=${process.env.REACT_APP_API_GUID}`).then(
-            res => setTasks(res.data.value)
-        )
-        axios.get(`http://intravision-task.test01.intravision.ru/api/${process.env.REACT_APP_API_GUID}/Priorities`).then(
-            res => setPriorities(res.data)
-        )
-
-    }, [])
-
-
+const Tasks = ({selectTask, openNewTaskWindow, openEditTaskWindow, tasks, priorities}) => {
     let tasksElement = tasks.map(task => {
         return <Task priorities={priorities}
                      id={task.id}
@@ -29,6 +14,9 @@ const Tasks = ({selectTask, openNewTaskWindow, openEditTaskWindow}) => {
                      statusRgb={task.statusRgb}
                      task={task}
                      comment={task.comment}
+                     executorId={task.executorId}
+                     executorName={task.executorName}
+                     statusId={task.statusId}
                      priorityId={task.priorityId}/>
     })
 
@@ -41,7 +29,21 @@ const Tasks = ({selectTask, openNewTaskWindow, openEditTaskWindow}) => {
         </div>
     );
 };
-const Task = ({selectTask, task,  id, name, statusName, initiatorName, priorityId, priorities, comment,  statusRgb = "#ffffff"}) => {
+const Task = ({
+                  selectTask,
+                  executorId,
+                  executorName,
+                  statusId,
+                  task,
+                  id,
+                  name,
+                  statusName,
+                  initiatorName,
+                  priorityId,
+                  priorities,
+                  comment,
+                  statusRgb = "#ffffff"
+              }) => {
 //     createdAt: "2022-02-03T15:19:30.0199866+03:00"
 // description: "<p style=\"color: #e5e5e5;\">Уха</p> из трех видов рыб. Салат с телятиной. МОРС КЛЮКВЕННЫЙ"
 // executorGroupId: 70104
@@ -65,20 +67,22 @@ const Task = ({selectTask, task,  id, name, statusName, initiatorName, priorityI
 // taskTypeId: 70105
 // taskTypeName: "Стандартный"
 // updatedAt: "2022-02-03T15:19:30.0199866+03:00"
+    const [selectedExecuter, setSelectedExecuter] = useState({id: executorId, name: executorName})
+    const [selectedStatus, setSelectedStatus] = useState({id: statusId, name: statusName, rgb: statusRgb})
+
 
     const getPriorityColor = (priorityId) => {
         return priorities.find(priority => {
             return priority.id === priorityId
         }).rgb
     }
-    console.log(getPriorityColor(priorityId))
     return (
         <div onClick={() => selectTask(task)} className={s.taskItem}>
             <div className={s.priority} style={{backgroundColor: getPriorityColor(priorityId)}}/>
             <div className={s.id}> {id} </div>
             <div className={s.name}> {name}</div>
             <div style={{backgroundColor: statusRgb}} className={s.statusName}> {statusName}</div>
-            <div className={s.initiatorName}> {initiatorName}</div>
+            <div className={s.executor}> {executorName}</div>
         </div>
     )
 }

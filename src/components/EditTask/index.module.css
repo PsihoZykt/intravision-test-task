@@ -7,6 +7,19 @@
     background-color: #ECF3F7;
 
 }
+.dropdown {
+    background-color: unset;
+    border: none
+}
+.dropdown div {
+    background-color: unset;
+    border: none;
+    padding: 0;
+    color: inherit;
+}
+.dropdownMenu {
+    margin-left: -240px;
+}
 .header {
     height: 61px;
     background-color: #194673;

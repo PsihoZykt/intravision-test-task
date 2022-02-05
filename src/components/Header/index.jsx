@@ -7,7 +7,19 @@ import logo from '../../assets/img/navbar/logo.png'
 import settings from '../../assets/img/navbar/settings.png'
 import tasks from '../../assets/img/navbar/tasks.png'
 import s from './index.module.css'
+const Header = () => {
+    return <div>
+        <Navbar />
+        <TopMenu />
+    </div>
+}
+const TopMenu = () => {
+    return <div className={s.topMenu}>
+        <div className={s.searchField}>
 
+        </div>
+    </div>
+}
 const Navbar = () => {
     return (
         <div className={s.navbar}>
@@ -41,4 +53,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Header;

@@ -1,0 +1,58 @@
+.newTask {
+    position: absolute;
+    left: 625px;
+    top: 65px;
+    width: 981px;
+    height: 90%;
+    background-color: #ECF3F7;
+
+}
+.header {
+    height: 61px;
+    background-color: #194673;
+    display: flex;
+    align-items: center;
+    padding-left: 37px;
+    color: white;
+    font-size: 18px;
+    line-height: 20px;
+    font-family: myriad-pro-condensed, sans-serif;
+    position: relative;
+}
+.header .closeButton {
+    position: absolute;
+    right: 20px;
+}
+.header .closeButton img {
+width: 16px;
+    filter: invert(100%);
+}
+.name, .description {
+    margin-top: 13px;
+    width: 623px;
+
+}
+.nameLabel, .descriptionLabel {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    color: #9F9EA7;
+
+}
+.nameWrapper, .descriptionWrapper {
+    margin-left: 37px;
+}
+.nameWrapper {
+    margin-top: 55px;
+}
+.descriptionWrapper {
+    margin-top: 23px;
+}
+.name {
+    height: 85px;
+    background-color: white;
+}
+.description{
+    height: 134px;
+    background-color: white;
+}

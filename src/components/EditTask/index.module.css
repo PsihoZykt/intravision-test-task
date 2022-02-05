@@ -1,0 +1,51 @@
+.editTask {
+    position: absolute;
+    left: 625px;
+    top: 65px;
+    width: 981px;
+    height: 90%;
+    background-color: #ECF3F7;
+
+}
+.header {
+    height: 61px;
+    background-color: #194673;
+    display: flex;
+    align-items: center;
+    padding-left: 37px;
+    color: white;
+    font-size: 18px;
+    line-height: 20px;
+    font-family: myriad-pro-condensed, sans-serif;
+    position: relative;
+}
+.header .closeButton {
+    position: absolute;
+    right: 20px;
+}
+.header .closeButton img {
+    width: 16px;
+    filter: invert(100%);
+}
+.mainPage {
+    display: flex;
+    height: 721px;
+}
+.leftSide {
+    width: 735px;
+    background-color: red;
+}
+.rightSide {
+    width: 240px;
+    background-color: green;
+}
+.descriptionWrapper, .addCommentaryWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    padding-left: 37px;
+    padding-top: 28px;
+}
+.description {
+    height: 150px;
+}

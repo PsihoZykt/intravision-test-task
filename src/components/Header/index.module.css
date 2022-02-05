@@ -25,3 +25,24 @@ min-height: 1200px;
     font-style: normal;
 
 }
+.topMenu {
+    position: absolute;
+    top: 0px;
+    height: 65px;
+    width: 1600px;
+    background: #D1E0ED;
+    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+    z-index: -1;
+    display: flex;
+    align-items: center;
+}
+.searchField {
+    width: 680px;
+    height: 40px;
+    margin-left: 104px;
+    background: #FFFFFF;
+    border: 1px solid #42AAFF;
+    border-radius: 50px;
+    /*box-shadow: 0px 0px 7px rgba(0, 140, 240, 0.15), inset -1px 0px 7px rgba(0, 0, 0, 0.11);*/
+
+}

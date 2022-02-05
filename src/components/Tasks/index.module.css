@@ -1,0 +1,103 @@
+.tasks {
+    left: 95px;
+    top: 65px;
+    color: black;
+    background-color: aqua;
+    position: absolute;
+    width: 1505px;
+}
+
+.taskItem {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #F2F2F2;
+
+}
+
+.taskItem div {
+
+    display: -webkit-box;
+    max-width: 419px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*display: flex;*/
+    /*align-items: center;*/
+
+}
+
+.taskItem .id {
+    text-align: center;
+}
+
+.tasksRowLabels {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.delimiter {
+    height: 1px;
+    width: 100%;
+    background: #DAE0E7;
+    box-shadow: 0px 0px 10px rgba(94, 96, 109, 0.2);
+
+}
+
+.tasksRowLabels {
+
+}
+
+.tasksRowLabels .id {
+    text-align: center;
+    border-right: 1px solid #E2E7EA;
+}
+
+.tasksRowLabels .name {
+    border-right: 1px solid #E2E7EA;
+}
+
+.tasksRowLabels .statusName {
+    border-right: 1px solid #E2E7EA;
+}
+
+.priority {
+    width: 5px;
+    height: 40px;
+    border-radius: 3px;
+    margin-left: 1px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.id {
+    width: 111px;
+}
+
+.name {
+    width: 419px;
+}
+.tasksRowLabels .statusName {
+    width: 125px;
+    text-align: center;
+}
+.taskItem .statusName {
+    /*width: 125px;*/
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 2px 14px;
+    height: 22px;
+    border-radius: 15px;
+}
+
+.taskRowLabels .initiatorName {
+    border: 0;
+}
